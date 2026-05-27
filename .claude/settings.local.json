@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(findstr -i liferay)",
+      "Read(//c//**)",
+      "Bash(start \"C:/Users/pablo/mi-workspace-liferay/bundles/tomcat-9.0.17/bin/startup.bat\")",
+      "Bash(findstr pokedex *)",
+      "Bash(\"C:/Users/pablo/mi-workspace-liferay/bundles/tomcat-9.0.17/bin/startup.bat\")",
+      "Bash(Get-Content \"C:/Users/pablo/mi-workspace-liferay/bundles/tomcat-9.0.17/logs/catalina.out\" -Tail 30)",
+      "Bash(Get-ChildItem \"C:/Users/pablo/mi-workspace-liferay/bundles/tomcat-9.0.17/logs/\")",
+      "Bash(Sort-Object LastWriteTime -Descending)",
+      "Bash(Select-Object -First 3)",
+      "Bash(java -version)",
+      "Bash(catalina.bat run *)",
+      "Bash(Expand-Archive -Path \"C:\\\\Users\\\\pablo\\\\Downloads\\\\WhatsApp Unknown 2026-05-18 at 16.32.10.zip\" -DestinationPath \"C:\\\\Users\\\\pablo\\\\Downloads\\\\whatsapp_extracted\" -Force)",
+      "Bash(Get-ChildItem \"C:\\\\Users\\\\pablo\\\\Downloads\\\\whatsapp_extracted\" -Recurse)",
+      "Bash(Select-Object FullName, Extension)"
+    ]
+  }
+}

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransLink — Demo de estilos</title>
+    <style>
+        /* ── Base ── */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+        .subtitulo-demo {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .seccion {
+            margin-bottom: 3rem;
+        }
+
+        .etiqueta-seccion {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #94a3b8;
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── Panel contenedor ── */
+        .contenedor-historial {
+            width: 100%;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            overflow-x: auto;
+        }
+
+        /* ── Cabecera ── */
+        .cabecera-historial {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .titulo-seccion {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        /* ── Botón PDF ── */
+        .btn-exportar {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+        .btn-exportar:hover { opacity: 0.88; transform: translateY(-1px); }
+        .btn-exportar-azul  { background: #1e40af; }
+        .btn-exportar-verde { background: #065f46; }
+        .btn-exportar-rojo  { background: #991b1b; }
+
+        /* ── Tabla wrapper ── */
+        .tabla-wrapper {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* ── Tabla ── */
+        .tabla-datos {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+            text-align: left;
+        }
+
+        .tabla-datos thead tr {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+        }
+
+        .tabla-datos thead th {
+            padding: 0.875rem 1rem;
+            font-weight: 600;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .tabla-datos tbody tr {
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.15s ease;
+        }
+
+        .tabla-datos tbody tr:nth-child(even) { background-color: #f8fafc; }
+        .tabla-datos tbody tr:nth-child(odd)  { background-color: #ffffff; }
+        .tabla-datos tbody tr:hover           { background-color: #eff6ff; }
+        .tabla-datos tbody tr:last-child      { border-bottom: none; }
+
+        .tabla-datos tbody td {
+            padding: 0.8rem 1rem;
+            vertical-align: middle;
+            color: #374151;
+        }
+
+        .col-centro { text-align: center; }
+        .td-centro  { text-align: center; }
+
+        /* ── Textos especiales ── */
+        .texto-bold    { font-weight: 600; color: #1e293b; }
+        .texto-pequeño { font-size: 0.8rem; color: #64748b; }
+        .texto-muted   { color: #6b7280; font-size: 13px; }
+
+        .ruta-salida  { display: block; font-weight: 500; color: #1f2937; }
+        .ruta-destino { display: block; font-size: 0.75rem; color: #9ca3af; margin-top: 2px; }
+
+        .total-kms { text-align: center; font-weight: 700; color: #2563eb; }
+
+        .mensaje-vacio {
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        /* ── Badges ── */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .badge-activo    { background: #d1fae5; color: #065f46; }
+        .badge-baja      { background: #fee2e2; color: #991b1b; }
+        .badge-resuelta  { background: #d1fae5; color: #065f46; }
+        .badge-pendiente { background: #fee2e2; color: #991b1b; }
+        .badge-averia    { background: #fee2e2; color: #991b1b; }
+        .badge-accidente { background: #fef3c7; color: #92400e; }
+        .badge-retraso   { background: #dbeafe; color: #1e40af; }
+        .badge-otro      { background: #f3f4f6; color: #374151; }
+
+        /* ── Acciones ── */
+        .form-inline { display: inline; }
+
+        .accion-link {
+            color: #2563eb;
+            font-size: 13px;
+            text-decoration: none;
+            margin-right: 12px;
+            font-weight: 500;
+        }
+        .accion-link:hover { color: #1d4ed8; text-decoration: underline; }
+
+        .accion-peligro {
+            color: #dc2626;
+            background: none;
+            border: none;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 500;
+            padding: 0;
+        }
+
+        .accion-resolver {
+            background: #059669;
+            color: #fff;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .accion-resolver:hover { background: #047857; }
+
+        .accion-resuelta { color: #9ca3af; font-size: 12px; }
+
+        /* ── Dashboard tarjetas (demo) ── */
+        .contenedor-tarjetas {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .tarjeta {
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid transparent;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .tarjeta:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
+        .tarjeta h3 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.7;
+            margin-bottom: 0.4rem;
+        }
+        .valor-numerico { font-size: 1.75rem; font-weight: 700; }
+        .tarjeta-verde   { background: #d1fae5; border-color: #22c55e; }
+        .tarjeta-azul    { background: #dbeafe; border-color: #3b82f6; }
+        .tarjeta-roja    { background: #fee2e2; border-color: #ef4444; }
+        .tarjeta-amarilla{ background: #fef9c3; border-color: #eab308; }
+
+        /* nota flotante */
+        .nota {
+            background: #fef9c3;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<h1>TransLink — Vista previa de estilos</h1>
+<p class="subtitulo-demo">Pasa el ratón por encima de las filas para ver el efecto hover en azul claro ✨</p>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  DASHBOARD                                -->
+<!-- ══════════════════════════════════════════ -->
+<div class="seccion">
+    <p class="etiqueta-seccion">Sección 1 — Dashboard (tarjetas resumen)</p>
+    <div class="contenedor-tarjetas">
+        <div class="tarjeta tarjeta-verde">
+            <h3>Viajes Hoy</h3>
+            <p class="valor-numerico">7</p>
+        </div>
+        <div class="tarjeta tarjeta-roja">
+            <h3>Incidencias</h3>
+            <p class="valor-numerico">3</p>
+        </div>
+        <div class="tarjeta tarjeta-amarilla">
+            <h3>Gasto Repostajes</h3>
+            <p class="valor-numerico">412,50 €</p>
+        </div>
+        <div class="tarjeta tarjeta-azul">
+            <h3>Kilómetros Totales</h3>
+            <p class="valor-numerico">18.340 km</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!--  TABLA VIAJES                             -->
+<!-- ══════════════════════════════════════════ -->
+<div class="seccion">
+    <p class="etiqueta-seccion">Sección 2 — Historial de Viajes</p>
+    <div class="contenedor-historial">
+        <div class="cabecera-historial">
+            <span class="titulo-seccion">Historial de Viajes</span>
+            <a href="#" class="btn-exportar btn-exportar-azul">&#8595; Exportar PDF</a>
+        </div>
+        <div class="tabla-wrapper">
+            <table class="tabla-datos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Conductor</th>
+                        <th>Matrícula</th>
+                        <th>Ruta</th>
+                        <th>KM inicio / fin</th>
+                        <th class="col-centro">Total KM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>31/03/2026</td>
+                        <td class="texto-bold">Carlos Martínez</td>
+                        <td class="texto-bold">1234 ABC</td>
+                        <td>
+                            <span class="ruta-salida">Madrid Centro</span>
+                            <span class="ruta-destino">&#8594; Barcelona Norte</span>
+                        </td>
+                        <td class="texto-pequeño">45.200 — 45.820</td>
+                        <td class="total-kms">620 km</td>
+                    </tr>
+                    <tr>
+                        <td>30/03/2026</td>
+                        <td class="texto-bold">Laura Sánchez</td>
+                        <td class="texto-bold">5678 XYZ</td>
+                        <td>
+                            <span class="ruta-salida">Sevilla Sur</span>
+                            <span class="ruta-destino">&#8594; Málaga Puerto</span>
+                        </td>
+                        <td class="texto-pequeño">22.100 — 22.310</td>
+                        <td class="total-kms">210 km</td>
+                    </tr>
+                    <tr>
+                        <td>30/03/2026</td>
+                        <td class="texto-bold">Carlos Martínez</td>
+                        <td class="texto-bold">9012 DEF</td>
+                        <td>
+                            <span class="ruta-salida">Valencia Av. del Puerto</span>
+                            <span class="ruta-destino">&#8594; Alicante Terminal</span>
+                        </td>
+                        <td class="texto-pequeño">31.450 — 31.610</td>
+                        <td class="total-kms">160 km</td>
+                    </tr>
+                    <tr>
+                        <td>29/03/2026</td>
+                        <td class="texto-bold">Pedro Gómez</td>
+                        <td class="texto-bold">3456 GHI</td>
+                        <td>
+                            <span class="ruta-salida">Bilbao Centro</span>
+                            <span class="ruta-destino">&#8594; San Sebastián</span>
+                        </td>
+                        <td class="texto-pequeño">18.900 — 19.080</td>
+                        <td class="total-kms">180 km</td>
+                    </tr>
+                    <tr>
+                        <td>28/03/2026</td>
+                        <td class="texto-bold">Laura Sánchez</td>
+                        <td class="texto-bold">5678 XYZ</td>
+                        <td>
+                            <span class="ruta-salida">Granada Palacio</span>
+                            <span class="ruta-destino">&#8594; Jaén Estación</span>
+                        </td>
+                        <td class="texto-pequeño">10.250 — 10.360</td>
+                        <td class="total-kms">110 km</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!--  TABLA VEHÍCULOS                          -->
+<!-- ══════════════════════════════════════════ -->
+<div class="seccion">
+    <p class="etiqueta-seccion">Sección 3 — Flota de Vehículos (admin)</p>
+    <div class="contenedor-historial">
+        <div class="cabecera-historial">
+            <span class="titulo-seccion">Flota de Vehículos</span>
+            <a href="#" class="btn-exportar btn-exportar-azul">+ Añadir Vehículo</a>
+        </div>
+        <div class="tabla-wrapper">
+            <table class="tabla-datos">
+                <thead>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Año</th>
+                        <th>KM Actuales</th>
+                        <th>Estado</th>
+                        <th class="col-centro">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="texto-bold">1234 ABC</td>
+                        <td>Mercedes</td>
+                        <td>Sprinter 316</td>
+                        <td>2021</td>
+                        <td>45.820 km</td>
+                        <td><span class="badge badge-activo">Activo</span></td>
+                        <td class="td-centro">
+                            <a href="#" class="accion-link">Editar</a>
+                            <button class="accion-peligro">Dar de baja</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="texto-bold">5678 XYZ</td>
+                        <td>Volkswagen</td>
+                        <td>Crafter 35</td>
+                        <td>2020</td>
+                        <td>22.310 km</td>
+                        <td><span class="badge badge-activo">Activo</span></td>
+                        <td class="td-centro">
+                            <a href="#" class="accion-link">Editar</a>
+                            <button class="accion-peligro">Dar de baja</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="texto-bold">9012 DEF</td>
+                        <td>Ford</td>
+                        <td>Transit Custom</td>
+                        <td>2019</td>
+                        <td>31.610 km</td>
+                        <td><span class="badge badge-baja">Baja</span></td>
+                        <td class="td-centro">
+                            <a href="#" class="accion-link">Editar</a>
+                            <button class="accion-peligro">Dar de baja</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="texto-bold">3456 GHI</td>
+                        <td>Iveco</td>
+                        <td>Daily 35S</td>
+                        <td>2022</td>
+                        <td>19.080 km</td>
+                        <td><span class="badge badge-activo">Activo</span></td>
+                        <td class="td-centro">
+                            <a href="#" class="accion-link">Editar</a>
+                            <button class="accion-peligro">Dar de baja</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!--  TABLA REPOSTAJES                         -->
+<!-- ══════════════════════════════════════════ -->
+<div class="seccion">
+    <p class="etiqueta-seccion">Sección 4 — Historial de Repostajes</p>
+    <div class="contenedor-historial">
+        <div class="cabecera-historial">
+            <span class="titulo-seccion">Historial de Repostajes</span>
+            <a href="#" class="btn-exportar btn-exportar-verde">&#8595; Exportar PDF</a>
+        </div>
+        <div class="tabla-wrapper">
+            <table class="tabla-datos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Conductor</th>
+                        <th>Vehículo</th>
+                        <th>Litros</th>
+                        <th>€/Litro</th>
+                        <th class="col-centro">Total</th>
+                        <th>Gasolinera</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>31/03/2026</td>
+                        <td class="texto-bold">Carlos Martínez</td>
+                        <td class="texto-bold">1234 ABC — Mercedes</td>
+                        <td>60,00 L</td>
+                        <td>1,649 €</td>
+                        <td class="total-kms">98,94 €</td>
+                        <td class="texto-muted">Repsol Av. Gran Vía</td>
+                    </tr>
+                    <tr>
+                        <td>29/03/2026</td>
+                        <td class="texto-bold">Laura Sánchez</td>
+                        <td class="texto-bold">5678 XYZ — Volkswagen</td>
+                        <td>45,50 L</td>
+                        <td>1,632 €</td>
+                        <td class="total-kms">74,26 €</td>
+                        <td class="texto-muted">BP Carretera N-4</td>
+                    </tr>
+                    <tr>
+                        <td>28/03/2026</td>
+                        <td class="texto-bold">Pedro Gómez</td>
+                        <td class="texto-bold">3456 GHI — Iveco</td>
+                        <td>80,00 L</td>
+                        <td>1,611 €</td>
+                        <td class="total-kms">128,88 €</td>
+                        <td class="texto-muted">—</td>
+                    </tr>
+                    <tr>
+                        <td>27/03/2026</td>
+                        <td class="texto-bold">Carlos Martínez</td>
+                        <td class="texto-bold">1234 ABC — Mercedes</td>
+                        <td>55,30 L</td>
+                        <td>1,625 €</td>
+                        <td class="total-kms">89,86 €</td>
+                        <td class="texto-muted">Cepsa Autopista A-4</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!--  TABLA INCIDENCIAS                        -->
+<!-- ══════════════════════════════════════════ -->
+<div class="seccion">
+    <p class="etiqueta-seccion">Sección 5 — Historial de Incidencias</p>
+    <div class="contenedor-historial">
+        <div class="cabecera-historial">
+            <span class="titulo-seccion">Historial de Incidencias</span>
+            <a href="#" class="btn-exportar btn-exportar-rojo">&#8595; Exportar PDF</a>
+        </div>
+        <div class="tabla-wrapper">
+            <table class="tabla-datos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Conductor</th>
+                        <th>Vehículo</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th class="col-centro">Estado</th>
+                        <th class="col-centro">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>31/03/2026</td>
+                        <td class="texto-bold">Carlos Martínez</td>
+                        <td class="texto-bold">1234 ABC</td>
+                        <td><span class="badge badge-averia">Avería</span></td>
+                        <td class="texto-muted">Pinchazo en rueda trasera derecha en autovía A-4...</td>
+                        <td class="td-centro"><span class="badge badge-pendiente">Pendiente</span></td>
+                        <td class="td-centro">
+                            <button class="accion-resolver">✓ Resolver</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>30/03/2026</td>
+                        <td class="texto-bold">Laura Sánchez</td>
+                        <td class="texto-bold">5678 XYZ</td>
+                        <td><span class="badge badge-retraso">Retraso</span></td>
+                        <td class="texto-muted">Retención en la A-7, llegada con 45 minutos de...</td>
+                        <td class="td-centro"><span class="badge badge-resuelta">Resuelta</span></td>
+                        <td class="td-centro"><span class="accion-resuelta">—</span></td>
+                    </tr>
+                    <tr>
+                        <td>28/03/2026</td>
+                        <td class="texto-bold">Pedro Gómez</td>
+                        <td class="texto-bold">3456 GHI</td>
+                        <td><span class="badge badge-accidente">Accidente</span></td>
+                        <td class="texto-muted">Colisión leve en parking de destino, sin heridos...</td>
+                        <td class="td-centro"><span class="badge badge-pendiente">Pendiente</span></td>
+                        <td class="td-centro">
+                            <button class="accion-resolver">✓ Resolver</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>27/03/2026</td>
+                        <td class="texto-bold">Carlos Martínez</td>
+                        <td class="texto-bold">1234 ABC</td>
+                        <td><span class="badge badge-otro">Otro</span></td>
+                        <td class="texto-muted">Cliente no estaba en el punto de recogida acordado...</td>
+                        <td class="td-centro"><span class="badge badge-resuelta">Resuelta</span></td>
+                        <td class="td-centro"><span class="accion-resuelta">—</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

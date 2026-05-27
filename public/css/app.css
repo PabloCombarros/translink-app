@@ -1,0 +1,844 @@
+/* ============================================================
+   TRANSLINK APP — Hoja de estilos principal
+   Organizado por secciones para facilitar el mantenimiento
+   ============================================================ */
+
+
+/* ────────────────────────────────────────────────────────────
+   1. RESET & BASE
+   ────────────────────────────────────────────────────────────*/
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* ────────────────────────────────────────────────────────────
+   2. LAYOUT GENERAL
+   ────────────────────────────────────────────────────────────*/
+.contenedor-principal {
+    width: 100%;
+    padding: 1rem;
+}
+
+.contenedor-historial {
+    width: 100%;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    overflow-x: auto;
+}
+
+.contenedor-formulario {
+    width: 100%;
+    max-width: 33.333%;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   3. CABECERAS DE SECCIÓN
+   ────────────────────────────────────────────────────────────*/
+.titulo-principal {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #0f172a;
+}
+
+.titulo-seccion {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.titulo-formulario {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: #1f2937;
+}
+
+/* Fila superior con título + botón */
+.cabecera-historial {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   4. DASHBOARD — TARJETAS
+   ────────────────────────────────────────────────────────────*/
+.contenedor-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .contenedor-tarjetas { grid-template-columns: repeat(4, 1fr); }
+}
+
+.tarjeta {
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-left: 4px solid transparent;
+    cursor: pointer;
+    will-change: transform;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+}
+
+.tarjeta:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.18) !important;
+}
+
+.tarjeta h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    opacity: 0.75;
+}
+
+.valor-numerico {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.tarjeta-verde  { background-color: #d1fae5; border-color: #22c55e; }
+.tarjeta-verde:hover  { background-color: #bbf7d0; }
+
+.tarjeta-azul   { background-color: #dbeafe; border-color: #3b82f6; }
+.tarjeta-azul:hover   { background-color: #bfdbfe; }
+
+.tarjeta-roja   { background-color: #fee2e2; border-color: #ef4444; }
+.tarjeta-roja:hover   { background-color: #fecaca; }
+
+.tarjeta-amarilla { background-color: #fef9c3; border-color: #eab308; }
+.tarjeta-amarilla:hover { background-color: #fef08a; }
+
+.enlace-tarjeta {
+    text-decoration: none;
+    display: block;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   5. ALERTAS
+   ────────────────────────────────────────────────────────────*/
+.alerta-exito {
+    background: #d1fae5;
+    border: 1px solid #6ee7b7;
+    color: #065f46;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.alerta-error {
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.alerta-error ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.error-campo {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   6. BOTONES
+   ────────────────────────────────────────────────────────────*/
+/* Botón genérico guardar */
+.boton-guardar {
+    width: 100%;
+    background-color: #2563eb;
+    color: white;
+    font-weight: 700;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.boton-guardar:hover { background-color: #1d4ed8; }
+
+/* Botón incidencias */
+.boton-incidencia {
+    width: 100%;
+    margin-top: 0.5rem;
+    background: #A32D2D;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+
+.boton-incidencia:hover { background: #791F1F; }
+
+/* Botones Exportar PDF */
+.btn-exportar {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    transition: opacity 0.2s, transform 0.15s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-exportar:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+.btn-exportar-azul  { background: #1e40af; }
+.btn-exportar-verde { background: #065f46; }
+.btn-exportar-rojo  { background: #991b1b; }
+
+/* Botón acción añadir (vehiculos) */
+.btn-anadir {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white;
+    font-weight: 700;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: background 0.2s;
+}
+
+.btn-anadir:hover { background-color: #1d4ed8; }
+
+/* Botón carta de porte (por fila en tabla) */
+.btn-carta {
+    display: inline-block;
+    background: #0f172a;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.15s, transform 0.1s;
+    white-space: nowrap;
+}
+
+.btn-carta:hover {
+    background: #1e293b;
+    transform: translateY(-1px);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   7. TABLAS — Diseño moderno
+   ────────────────────────────────────────────────────────────*/
+.tabla-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.tabla-datos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+}
+
+/* Cabecera */
+.tabla-datos thead tr {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+}
+
+.tabla-datos thead th {
+    padding: 0.875rem 1rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: none;
+    white-space: nowrap;
+}
+
+/* Filas */
+.tabla-datos tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background-color 0.15s ease;
+}
+
+.tabla-datos tbody tr:nth-child(even) { background-color: #f8fafc; }
+.tabla-datos tbody tr:nth-child(odd)  { background-color: #ffffff; }
+.tabla-datos tbody tr:hover           { background-color: #eff6ff; }
+.tabla-datos tbody tr:last-child      { border-bottom: none; }
+
+/* Celdas */
+.tabla-datos tbody td {
+    padding: 0.8rem 1rem;
+    vertical-align: middle;
+    color: #374151;
+}
+
+/* Alineación centro para columnas específicas */
+.tabla-datos .col-centro {
+    text-align: center;
+}
+
+/* Paginación */
+.paginacion {
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   8. TEXTOS ESPECIALES EN TABLA
+   ────────────────────────────────────────────────────────────*/
+.texto-bold {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #1e293b;
+}
+
+.texto-pequeño {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.texto-muted {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.ruta-salida {
+    display: block;
+    font-weight: 500;
+    color: #1f2937;
+    font-size: 0.875rem;
+}
+
+.ruta-destino {
+    display: block;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 2px;
+}
+
+.total-kms {
+    text-align: center;
+    font-weight: 700;
+    color: #2563eb;
+    font-size: 0.9rem;
+}
+
+.mensaje-vacio {
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.td-descripcion {
+    max-width: 200px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.td-centro {
+    text-align: center;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   9. BADGES / ETIQUETAS
+   ────────────────────────────────────────────────────────────*/
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Estado vehículo */
+.badge-activo  { background: #d1fae5; color: #065f46; }
+.badge-baja    { background: #fee2e2; color: #991b1b; }
+
+/* Estado incidencia */
+.badge-resuelta  { background: #d1fae5; color: #065f46; }
+.badge-pendiente { background: #fee2e2; color: #991b1b; }
+
+/* Tipo incidencia */
+.badge-averia    { background: #fee2e2; color: #991b1b; }
+.badge-accidente { background: #fef3c7; color: #92400e; }
+.badge-retraso   { background: #dbeafe; color: #1e40af; }
+.badge-otro      { background: #f3f4f6; color: #374151; }
+
+
+/* ────────────────────────────────────────────────────────────
+   10. ACCIONES EN TABLA (links/botones de acción por fila)
+   ────────────────────────────────────────────────────────────*/
+.form-inline {
+    display: inline;
+}
+
+.accion-link {
+    color: #2563eb;
+    font-size: 13px;
+    text-decoration: none;
+    margin-right: 12px;
+    font-weight: 500;
+    transition: color 0.15s;
+}
+
+.accion-link:hover { color: #1d4ed8; text-decoration: underline; }
+
+.accion-peligro {
+    color: #dc2626;
+    background: none;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.15s;
+    padding: 0;
+}
+
+.accion-peligro:hover { color: #b91c1c; }
+
+.accion-resolver {
+    background: #059669;
+    color: #fff;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.15s;
+}
+
+.accion-resolver:hover { background: #047857; }
+
+.accion-resuelta {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   11. FORMULARIOS
+   ────────────────────────────────────────────────────────────*/
+.formulario-viaje {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.campo-grupo label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.campo-grupo input,
+.campo-grupo select,
+.campo-grupo textarea {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background-color: #f9fafb;
+    font-size: 0.875rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.campo-grupo input:focus,
+.campo-grupo select:focus,
+.campo-grupo textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+    background-color: #fff;
+}
+
+.campo-grupo textarea {
+    resize: vertical;
+}
+
+.input-readonly {
+    background: #f3f4f6 !important;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+.label-opcional {
+    color: #9ca3af;
+    font-weight: normal;
+    font-size: 0.8rem;
+}
+
+.grid-2-columnas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   12. FORMULARIO DE INCIDENCIAS
+   ────────────────────────────────────────────────────────────*/
+.contenedor-incidencia {
+    max-width: 480px;
+}
+
+.tarjeta-incidencia {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.incidencia-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.incidencia-icono {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #FCEBEB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.incidencia-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+    color: #111827;
+}
+
+.incidencia-subtitulo {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   13. SIDEBAR
+   ────────────────────────────────────────────────────────────*/
+.sidebar-usuario {
+    position: absolute;
+    bottom: 1.5rem;
+}
+
+.sidebar-usuario-nombre {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-bottom: 4px;
+}
+
+.sidebar-usuario-rol {
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.sidebar-logout {
+    font-size: 12px;
+    color: #f87171;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s;
+}
+
+.sidebar-logout:hover { color: #fca5a5; }
+
+/* ────────────────────────────────────────────────────────────
+   14. FORMULARIOS PRO — Diseño profesional limpio
+   ────────────────────────────────────────────────────────────*/
+
+/* Wrapper de página */
+.pagina-form {
+    max-width: 580px;
+}
+
+/* Tarjeta principal */
+.form-pro {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+}
+
+/* Cabecera limpia (sin color de fondo) */
+.form-pro-header {
+    padding: 28px 32px 0;
+}
+
+/* Los modificadores de color ya no aplican fondo — solo sirven para
+   el acento del icono y el botón submit */
+.form-pro-header--azul,
+.form-pro-header--verde,
+.form-pro-header--rojo,
+.form-pro-header--slate { background: none; }
+
+/* Fila icono + texto */
+.form-pro-header-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* Caja del icono */
+.form-pro-icono-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #f0f4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.form-pro-titulo {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 2px;
+    letter-spacing: -0.01em;
+}
+
+.form-pro-subtitulo {
+    font-size: 12.5px;
+    color: #94a3b8;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Cuerpo */
+.form-pro-body {
+    padding: 24px 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Sección agrupada */
+.form-seccion {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-seccion-titulo {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+}
+
+/* Inputs mejorados dentro del form-pro */
+.form-pro-body .campo-grupo label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 5px;
+}
+
+.form-pro-body .campo-grupo input,
+.form-pro-body .campo-grupo select,
+.form-pro-body .campo-grupo textarea {
+    height: 42px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0 13px;
+    font-size: 14px;
+    background: #fff;
+    color: #1e293b;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-pro-body .campo-grupo textarea {
+    height: auto;
+    padding: 10px 13px;
+    resize: vertical;
+}
+
+.form-pro-body .campo-grupo input::placeholder,
+.form-pro-body .campo-grupo textarea::placeholder {
+    color: #cbd5e1;
+}
+
+.form-pro-body .campo-grupo input:focus,
+.form-pro-body .campo-grupo select:focus,
+.form-pro-body .campo-grupo textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    background: #fff;
+}
+
+.form-pro-body .campo-grupo select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+/* Input de solo lectura */
+.form-pro-body .campo-grupo .input-readonly {
+    background: #f8fafc !important;
+    color: #94a3b8;
+    cursor: default;
+}
+
+/* Línea divisora entre secciones */
+.form-pro-divider {
+    border: none;
+    border-top: 1px solid #f1f5f9;
+    margin: 4px 0;
+}
+
+/* Botón submit */
+.boton-submit-pro {
+    width: 100%;
+    height: 44px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    background: #1e293b;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.boton-submit-pro:hover {
+    background: #0f172a;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.25);
+    transform: translateY(-1px);
+}
+
+/* Los modificadores de color del botón ahora son sutiles */
+.boton-submit-pro--azul  { background: #1d4ed8; }
+.boton-submit-pro--azul:hover  { background: #1e40af; box-shadow: 0 4px 14px rgba(29,78,216,0.3); }
+
+.boton-submit-pro--verde { background: #1d4ed8; }
+.boton-submit-pro--verde:hover { background: #1e40af; box-shadow: 0 4px 14px rgba(29,78,216,0.3); }
+
+.boton-submit-pro--rojo  { background: #1d4ed8; }
+.boton-submit-pro--rojo:hover  { background: #1e40af; box-shadow: 0 4px 14px rgba(29,78,216,0.3); }
+
+.boton-submit-pro--slate { background: #1d4ed8; }
+.boton-submit-pro--slate:hover { background: #1e40af; box-shadow: 0 4px 14px rgba(29,78,216,0.3); }
+
+/* Botón cancelar */
+.boton-cancelar {
+    display: block;
+    text-align: center;
+    padding: 0.6rem;
+    border-radius: 8px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.15s;
+}
+
+.boton-cancelar:hover {
+    color: #1e293b;
+}
+
+/* ────────────────────────────────────────────────────────────
+   15. TABLAS — Acento de color por módulo
+   ────────────────────────────────────────────────────────────*/
+
+.tabla-wrapper.acento-azul  { border-top: 3px solid #2563eb; }
+.tabla-wrapper.acento-verde { border-top: 3px solid #059669; }
+.tabla-wrapper.acento-rojo  { border-top: 3px solid #dc2626; }
+.tabla-wrapper.acento-slate { border-top: 3px solid #475569; }
+
+/* Empty state mejorado */
+.empty-state {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.empty-state-icono {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+    opacity: 0.4;
+}
+
+.empty-state-texto {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+
